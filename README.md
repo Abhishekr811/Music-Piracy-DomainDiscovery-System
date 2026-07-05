@@ -32,11 +32,14 @@ The intelligence system is built using an asynchronous, data-driven architecture
 ```
 
 🛠️ System Components & Core Responsibilities
+
 The codebase is split into modular execution nodes, ensuring high maintainability and failure isolation:
+```text
+Worker            ModuleCore           OperationsTechnology/Endpoints      Output Destination
+googleScraper.js• Ingests query tasks• Simulates human browsing footprint• Extracts raw organic layoutsPuppeteer (Headless Chrome)Bing Search Index Enginescraped_domains
+tabledomainIntelCollector.js• Massages messy raw domain properties• Performs zero-key network lookups• Pinpoints geographic host countriesGoogle DNS EngineOfficial ICANN RDAP ServiceIPinfo.io CDN Backbonedomain_intelligence table
+```
 
-googleScraper.js• Ingests query tasks• Simulates human browsing footprint• Extracts raw organic layoutsPuppeteer (Headless Chrome)Bing Search Index Enginescraped_domains tabledomain
-
-IntelCollector.js• Massages messy raw domain properties• Performs zero-key network lookups• Pinpoints geographic host countriesGoogle DNS EngineOfficial ICANN RDAP ServiceIPinfo.io CDN Backbonedomain_intelligence table
 
 
 🚀 Step-by-Step Installation & Setup
@@ -46,17 +49,22 @@ Follow this step-by-step pathway to spin up the automation matrix inside your lo
 
 2. Initialize Database TopologyConnect to your local MySQL server instance and execute the following SQL script to create the relational schematics:
 
-SQLCREATE DATABASE IF NOT EXISTS search_scraper_db;
+SQL
+```text
+CREATE DATABASE IF NOT EXISTS search_scraper_db;
 USE search_scraper_db;
 
 CREATE TABLE IF NOT EXISTS keywords (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     keyword VARCHAR(255) NOT NULL UNIQUE,
     status ENUM('pending', 'processing', 'completed', 'failed') DEFAULT 'pending',
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    
 );
 
 CREATE TABLE IF NOT EXISTS scraped_domains (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     keyword_id INT,
     domain_name VARCHAR(255) NOT NULL,
@@ -64,9 +72,11 @@ CREATE TABLE IF NOT EXISTS scraped_domains (
     scraped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (keyword_id) REFERENCES keywords(id),
     UNIQUE KEY unique_keyword_domain (keyword_id, domain_name)
+    
 );
 
 CREATE TABLE IF NOT EXISTS domain_intelligence (
+
     id INT AUTO_INCREMENT PRIMARY KEY,
     domain_name VARCHAR(255) NOT NULL UNIQUE,
     registrar VARCHAR(255),
@@ -78,30 +88,31 @@ CREATE TABLE IF NOT EXISTS domain_intelligence (
     asn VARCHAR(50),
     hosting_country VARCHAR(100),
     processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
+    );
 
 -- Seed processing targets
-INSERT IGNORE INTO keywords (keyword) VALUES 
+INSERT IGNORE INTO keywords (keyword) VALUES
+
 ('bollywood songs download'),
 ('hindi ringtone download'),
 ('mp3 song download');
-
+```
 
 3. Deploy Local Repository & DependenciesClone your codebase folder layout, navigate inside using your terminal, and install the required node packages:Bash# Install core database engine, browser toolsets, and configuration handlers
 npm install mysql2 puppeteer dotenv
 
 
 4. Wire Up Environment Variables (.env)Create a file named exactly .env in the root folder of your project to store connection configurations.⚠️ Security Warning: The .env template below contains credentials specific to your environment. Do NOT commit this file to GitHub. It is securely added to the .gitignore mapping rules.
+```text
 Ini, TOML
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_local_mysql_password_here
 DB_NAME=search_scraper_db
+```
 
 
-
-
-⚡ Execution InstructionsThe pipeline functions sequentially. Execute the modules through your terminal in this order:
+⚡Execution InstructionsThe pipeline functions sequentially. Execute the modules through your terminal in this order:
 
 Phase A: Target FingerprintingFire up the primary scraping system to consume items flagged as pending from the keyword queue:
 Bashnode googleScraper.js
