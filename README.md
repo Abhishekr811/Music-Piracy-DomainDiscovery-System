@@ -1,4 +1,4 @@
-Markdown# 🎵 Music Piracy Domain Discovery System
+# 🎵 Music Piracy Domain Discovery System
 
 An automated, database-driven threat intelligence pipeline that scrapes search engine footprints to discover and audit the infrastructural telemetry of high-risk digital piracy domains.
 
@@ -33,7 +33,7 @@ The intelligence system is built using an asynchronous, data-driven architecture
 
 🛠️ System Components & Core Responsibilities
 The codebase is split into modular execution nodes, ensuring high maintainability and failure isolation:
-Worker ModuleCore OperationsTechnology/EndpointsOutput Destination
+
 googleScraper.js• Ingests query tasks• Simulates human browsing footprint• Extracts raw organic layoutsPuppeteer (Headless Chrome)Bing Search Index Enginescraped_domains tabledomain
 
 IntelCollector.js• Massages messy raw domain properties• Performs zero-key network lookups• Pinpoints geographic host countriesGoogle DNS EngineOfficial ICANN RDAP ServiceIPinfo.io CDN Backbonedomain_intelligence table
