@@ -1,7 +1,8 @@
 {
   "name": "music-piracy-domain",
   "version": "1.0.0",
-  "description": "",
+  "type": "commonjs",
+  "description": "An automated, database-driven threat intelligence pipeline that scrapes search engine footprints to discover and audit the infrastructural telemetry of high-risk digital piracy domains.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,10 +10,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
+    "@google/genai": "^2.10.0",
+    "cheerio": "^1.2.0",
     "dotenv": "^17.4.2",
     "mysql2": "^3.22.5",
-    "puppeteer": "^25.3.0"
-  }
+    "puppeteer": "^25.3.0",
+    "serpapi": "^2.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhishekr811/Music-Piracy-DomainDiscovery-System.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Abhishekr811/Music-Piracy-DomainDiscovery-System/issues"
+  },
+  "homepage": "https://github.com/Abhishekr811/Music-Piracy-DomainDiscovery-System#readme"
 }
