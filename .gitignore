@@ -1,0 +1,8 @@
+# Dependency folders (never upload these; npm install regenerates them)
+node_modules/
+
+# Local Environment Credentials (contains your private database passwords)
+.env
+
+# Execution & Telemetry Logs
+pipeline.log

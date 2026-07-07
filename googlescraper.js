@@ -15,8 +15,8 @@ const DB_CONFIG = {
 };
 
 const delay = (ms) => new Promise(res => setTimeout(res, ms));
-// Change this temporarily to give yourself a 30-second window to solve the CAPTCHA
-const randomDelay = () => delay(80000);
+// Change this temporarily to give yourself a 80-second window to solve the CAPTCHA
+const randomDelay = () => delay(120000);
 
 function buildGoogleUrl(keyword, filter) {
   const encodedKeyword = encodeURIComponent(keyword);
@@ -110,9 +110,9 @@ async function startScrapingEngine() {
             const normalizedDomain = parsedUrl.hostname.replace('www.', '');
 
             await pool.query(
-              `INSERT IGNORE INTO scraped_domains (keyword_id, domain_name, source_url) 
-               VALUES (?, ?, ?)`,
-              [target.id, normalizedDomain, rawUrl]
+              `INSERT IGNORE INTO reported_domain(domain_name) 
+               VALUES ( ?)`,
+              [normalizedDomain]
             );
           } catch (urlErr) {
             continue;
